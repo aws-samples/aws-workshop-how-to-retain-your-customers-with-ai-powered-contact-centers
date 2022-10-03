@@ -402,7 +402,7 @@ Resources:
                            'customerProfile': customerProfile
                   }
 
-      Name: CustomerProfiles
+      FunctionName: CustomerProfiles
       Handler: index.lambda_handler
       Role: !GetAtt LambdasIAMRole.Arn
       Runtime: python3.9
@@ -645,7 +645,7 @@ Resources:
                 except Exception as a:
                     print (a)
 
-      Name: LexSentimentUpdate
+      FunctionName: LexSentimentUpdate
       Handler: index.lambda_handler
       Role: !GetAtt LambdasIAMRole.Arn
       Runtime: python3.9
