@@ -21,12 +21,13 @@ Users need to be familiar with the below AWS services:
 - Amazon API Gateway
 - Amazon S3 and CloudFront
 
+Note that this workshop is designed for instructor led lab, where the SageMaker Feature Store is already setup for you. If you run the lab using personal account without an existing SageMaker Feature Store, please use the cloudformation function `LambdaZipCFN.yaml` in the Cloudformation-SageMaker-FS folder to setup the feature group used in the workshop. The workshop is expected to run in **us-west-2** region.
 ### Amazon SageMaker
 
 Clone the [github repo](https://github.com/aws-samples/aws-workshop-how-to-retain-your-customers-with-ai-powered-contact-centers.git) into SageMaker Studio. 
 
 #### Model Build Pipeline
-Note that this workshop is designed for instructor led lab, where the SageMaker Feature Store is already setup for you. If you run the lab using personal account without an existing SageMaker Feature Store, please use the cloudformation function `LambdaZipCFN.yaml` in the Cloudformation-SageMaker-FS folder to setup the feature group used in the workshop. The workshop is expected to run in **us-west-2** region.
+
 
 
 
