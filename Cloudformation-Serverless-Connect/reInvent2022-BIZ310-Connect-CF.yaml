@@ -450,7 +450,7 @@ Resources:
             },
             {
               "Parameters": {
-                "LambdaFunctionARN": "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:reInvent2022-CustomerProfiles",
+                "LambdaFunctionARN": "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:CustomerProfiles",
                 "InvocationTimeLimitSeconds": "3"
               },
               "Identifier": "8c956eef-1264-4f94-87ff-6833037e0cb1",
@@ -547,7 +547,7 @@ Resources:
             },
             {
               "Parameters": {
-                "LambdaFunctionARN": "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:reInvent2022-LexSentimentUpdate",
+                "LambdaFunctionARN": "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:LexSentimentUpdate",
                 "InvocationTimeLimitSeconds": "3"
               },
               "Identifier": "6fcad9a5-6a5b-4cb0-a0e6-046876bb8526",

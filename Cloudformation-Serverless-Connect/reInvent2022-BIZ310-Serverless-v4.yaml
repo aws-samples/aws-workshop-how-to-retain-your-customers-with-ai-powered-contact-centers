@@ -247,7 +247,7 @@ Resources:
           - "Contact Lens Realtime Rules Matched"
         detail:
           actionName:
-            - "NegativeSentiment"
+            - "LongNegativeSentiment"
       State: ENABLED
       Targets:
         - Arn: !Ref SNSforNegativeSentiment
@@ -412,7 +412,7 @@ Resources:
     Type: AWS::Lambda::Permission
     DependsOn: LambdareInvent2022CustomerProfiles
     Properties:
-      FunctionName: !Ref LambdareInvent2022CustomerProfiles
+      FunctionName: !Sub 'CustomerProfiles'
       Action: "lambda:InvokeFunction"
       Principal:  "connect.amazonaws.com"
       SourceAccount: !Sub ${AWS::AccountId}
@@ -655,7 +655,7 @@ Resources:
     Type: AWS::Lambda::Permission
     DependsOn: LambdareInvent2022LexSentimentUpdate
     Properties:
-      FunctionName: !Ref LambdareInvent2022LexSentimentUpdate
+      FunctionName: !Sub 'LexSentimentUpdate'
       Action: "lambda:InvokeFunction"
       Principal:  "connect.amazonaws.com"
       SourceAccount: !Sub ${AWS::AccountId}
