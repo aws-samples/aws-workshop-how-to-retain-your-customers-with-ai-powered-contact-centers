@@ -1,0 +1,56 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'Example Lambda zip'
+Parameters:
+  S3BucketName:
+    AllowedPattern: ^[0-9a-zA-Z]+([0-9a-zA-Z-]*[0-9a-zA-Z])*$
+    Default: sagemaker-us-west-2-631450739534
+    Type: String
+  S3KeyPrefix:
+    AllowedPattern: ^[0-9a-zA-Z-/]*$
+    Default: test-lambda
+    Type: String
+  LambdaFunctionName:
+    AllowedPattern: ^[0-9a-zA-Z-/]*$
+    Default: sagemaker-lambda-test
+    Type: String
+Resources:
+  MyFunctionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+              - lambda.amazonaws.com
+              - sagemaker.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonSageMakerFullAccess
+        - arn:aws:iam::aws:policy/AmazonSageMakerFeatureStoreAccess
+        - arn:aws:iam::aws:policy/AWSLambda_FullAccess
+  MyFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      Description: Example
+      FunctionName: !Ref 'LambdaFunctionName'
+      MemorySize: 256
+      Handler: lambda_function.lambda_handler
+      Runtime: python3.7
+      PackageType: Zip
+      EphemeralStorage:
+        Size: 512
+      Role: !GetAtt 'MyFunctionRole.Arn'
+      Timeout: 600
+      Code:
+        S3Bucket: !Ref 'S3BucketName'
+        S3Key: !Sub '${S3KeyPrefix}/functions/packages/lambda_deployment.zip'
+# Invoke Lambda Function to create Voice Dashboard
+  Lambdainvoke:
+    Type: AWS::CloudFormation::CustomResource
+    DependsOn:
+      - MyFunction
+    Version: "1.0"
+    Properties:
+      ServiceToken: !GetAtt MyFunction.Arn  
