@@ -58,7 +58,7 @@
         <script type="text/javascript">
           var containerDiv = document.getElementById("container-div");
           window.myCPP = window.myCPP || {};
-          var instanceURL = "*** https://[INSTANCE ALIAS].my.connect.aws/ccp-v2/ ***";
+          var instanceURL = "https://[INSTANCE ALIAS].my.connect.aws/ccp-v2/";
 
           // initialize the streams api
           function init() {
@@ -162,7 +162,7 @@
                   function myChartUpdate() {
                     var ArrayValues = [];
                     var settings = {
-                      "url": "*** apiGatewayInvokeURLchurn ***",
+                      "url": "apiGatewayInvokeURLchurn",
                       "method": "POST",
                       "timeout": 0,
                       //"data": "{ \"ContactId\": \"dbc4bbe8-7b09-42bd-aa0f-60d637c3af52\"}"
@@ -388,7 +388,7 @@
             console.log(customerid.value);
             $('#exampleModal').modal('hide');
             var settings = {
-              "url": "*** apiGatewayInvokeURLcontract ***",
+              "url": "apiGatewayInvokeURLcontract",
               "method": "POST",
               "timeout": 0,
               "data": "{ \"ContactId\": "+ JSON.stringify(contactId.value) +", \"phoneNumber\": "+ JSON.stringify(phoneNumber.value) +", \"Months\": "+ months +", \"email\": "+ JSON.stringify(email.value) +", \"firstName\": "+ JSON.stringify(firstName.value) +" }"
