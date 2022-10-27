@@ -1,0 +1,29 @@
+**BIZ310 - Data Collection File**
+
+* AMAZON CONNECT INSTANCE DETAILS *
+
+Instance Access URL:
+
+Instance ARN:
+
+Customer Profiles Domain:
+
+Phone Number:
+
+* BIZ310-Serverless CLOUDFORMATION OUTPUTS *
+
+apiGatewayInvokeURLchurn:
+
+apiGatewayInvokeURLcontract:
+
+CloudfrontEndpoint:
+
+CustomCCPS3Bucket:
+
+LexV2BotID (last 10 characters of the Lexv2BotARN):
+
+* BIZ310-Queue CLOUDFORMATION OUTPUTS *
+
+BasicQueueARN:
+
+RetentionQueueARN:
