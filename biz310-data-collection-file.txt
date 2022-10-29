@@ -1,6 +1,12 @@
-**BIZ310 - Data Collection File**
+** BIZ310 - Data Collection File **
 
-* AMAZON CONNECT INSTANCE DETAILS *
+** SECTION 3.1 **
+
+Account Id (12 digits):
+
+** AMAZON CONNECT INSTANCE DETAILS **
+
+Instance ALIAS:
 
 Instance Access URL:
 
@@ -8,9 +14,13 @@ Instance ARN:
 
 Customer Profiles Domain:
 
-Phone Number:
+DID Phone Number:
 
-* BIZ310-Serverless CLOUDFORMATION OUTPUTS *
+username: admin
+password: reInvent2022
+
+** SECTION 3.3 **
+** BIZ310-Serverless CLOUDFORMATION OUTPUTS **
 
 apiGatewayInvokeURLchurn:
 
@@ -22,8 +32,13 @@ CustomCCPS3Bucket:
 
 LexV2BotID (last 10 characters of the Lexv2BotARN):
 
-* BIZ310-Queue CLOUDFORMATION OUTPUTS *
+
+** SECTION 3.5 **
+** BIZ310-Queue CLOUDFORMATION OUTPUTS **
 
 BasicQueueARN:
 
 RetentionQueueARN:
+
+username: retention1
+password: reInvent2022
