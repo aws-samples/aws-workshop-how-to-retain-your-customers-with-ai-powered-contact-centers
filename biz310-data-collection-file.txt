@@ -14,10 +14,10 @@ Instance ARN:
 
 Customer Profiles Domain:
 
-DID Phone Number:
-
 username: admin
 password: reInvent2022
+
+DID Phone Number: +1
 
 ** SECTION 3.3 **
 ** BIZ310-Serverless CLOUDFORMATION OUTPUTS **
