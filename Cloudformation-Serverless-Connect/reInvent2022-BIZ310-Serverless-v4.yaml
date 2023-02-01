@@ -40,6 +40,10 @@ Parameters:
     Default: "**** Enter an email address for Contact Lens Notifications ****"
     Description: Email for Contact Lens Notification
     Type: String
+  S3bucketWorkshopFiles:
+    Default: "**** Enter the S3 bucket where the Workshop Files were uploaded ****"
+    Description: S3Bucket with Workshop Files
+    Type: String
 
 # API Gateway URLs, Queue Retention ARN, and LexV2Bot ARN to be used in the Website
 Outputs:
@@ -287,7 +291,7 @@ Resources:
       CompatibleRuntimes:
         - python3.9
       Content:
-        S3Bucket: nm-reinvent2022-files
+        S3Bucket: !Ref S3bucketWorkshopFiles
         S3Key: pandas/python.zip
       Description: Pandas Lambda Layer
       LayerName: pandas
@@ -300,7 +304,7 @@ Resources:
       CompatibleRuntimes:
         - python3.9
       Content:
-        S3Bucket: nm-reinvent2022-files
+        S3Bucket: !Ref S3bucketWorkshopFiles
         S3Key: numpy/python.zip
       Description: Numpy Lambda Layer
       LayerName: numpy
@@ -1526,7 +1530,7 @@ Resources:
     Properties:
       AutoBuildBotLocales: false
       BotFileS3Location:
-        S3Bucket: nm-reinvent2022-files
+        S3Bucket: !Ref S3bucketWorkshopFiles
         S3ObjectKey: reInvent2022-LexBot-DRAFT-RATIIENAXZ-LexJson.zip
       DataPrivacy:
         ChildDirected: false
@@ -1546,15 +1550,17 @@ Resources:
   createCustomCCPS3Bucket:
       Type: AWS::S3::Bucket
       Properties:
-          BucketName: !Sub customccp-${AWS::AccountId}-${AWS::Region}
-          PublicAccessBlockConfiguration:
-              BlockPublicAcls: True
-              BlockPublicPolicy: True
-              IgnorePublicAcls: True
-              RestrictPublicBuckets: True
-          WebsiteConfiguration:
-              IndexDocument: CCPcustom.html
-              ErrorDocument: error.html
+        BucketName: !Sub customccp-${AWS::AccountId}-${AWS::Region}
+        VersioningConfiguration:
+          Status: Enabled
+        PublicAccessBlockConfiguration:
+            BlockPublicAcls: True
+            BlockPublicPolicy: True
+            IgnorePublicAcls: True
+            RestrictPublicBuckets: True
+        WebsiteConfiguration:
+            IndexDocument: CCPcustom.html
+            ErrorDocument: error.html
 
 # S3 Bucket Policy
   CFS3BucketPolicy:
