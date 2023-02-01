@@ -56,12 +56,12 @@ This solution requires:
 
 #### Create a S3Bucket and Upload files in the WorkshopFiles folder
 
-There are three (3) files in the WorkshooFiles folder, these are Layers for [Pandas](https://pandas.pydata.org/) and [Numpy](https://numpy.org/):
+There are three (3) files in the [WorkshopFiles folder](./Cloudformation-Serverless-Connect/WorkshopFiles/), these are Layers for [Pandas](https://pandas.pydata.org/) and [Numpy](https://numpy.org/):
 - WorhshopFiles/pandas/python.zip
 - WorkshopFiles/numpy/python.zip
 - WorkshopFiles/reInvent2022-LexBot-DRAFT-RATIIENAXZ-LexJson.zip
 
-The CloudFormation stack [reInvent2022-BIZ310-Serveless-v4.yaml](./Cloudformation-Serverless-Connect/reInvent2022-BIZ310-Serveless-v4.yaml), in the cloudformation folder, will create all the serverless applications required for the solution. The input parameters of the CloudFormation stack include Amazon Connect ARN, Amazon Connect Instance, Amazon SageMaker Endpoint name, and Amazon SageMaker Feature Group Name.
+The CloudFormation stack [reInvent2022-BIZ310-Serveless-v4.yaml](./Cloudformation-Serverless-Connect/reInvent2022-BIZ310-Serverless-v4.yaml), in the cloudformation folder, will create all the serverless applications required for the solution. The input parameters of the CloudFormation stack include Amazon Connect ARN, Amazon Connect Instance, Amazon SageMaker Endpoint name, and Amazon SageMaker Feature Group Name.
 
 ![4](./img/cfParameters.png)
 
