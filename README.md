@@ -28,9 +28,6 @@ Clone the [github repo](https://github.com/aws-samples/aws-workshop-how-to-retai
 
 #### Model Build Pipeline
 
-
-
-
 1. Build the churn model using SageMaker Pipeline
 - Go through the steps defined in the Jupyter notebook [demo_customer_churn_pipeline.ipynb](https://github.com/aws-samples/aws-workshop-how-to-retain-your-customers-with-ai-powered-contact-centers/blob/main/demo_customer_churn_pipeline.ipynb). This notebook will create a SageMaker Pipeline to create the machine learning model for real-time churn prediction. A complete build pipeline looks like below:
 
@@ -39,60 +36,42 @@ Clone the [github repo](https://github.com/aws-samples/aws-workshop-how-to-retai
 2. Deploy the model from model registry after the SageMaker pipeline execution is finished by following the instructions in the juypter notebook.
 
 Once the SageMaker real-time endpoint is ready, move on to the next section to build the contact center using Amazon Connect.
-### Contact Lens for Amazon Connect
+
+### Contact Lens for Amazon Connect and Customer Profiles
 
 This solution requires:
 
-- An existing Amazon Connect instance with Contact Lens for Amazon Connect enabled
+- An existing Amazon Connect instance with Contact Lens for Amazon Connect and Customer Profiles enabled
 - Contact Flows enabled for "Real-Time and post call analytics" in the "Set recording and analytics behavior"
-- Create three (3) Real-time Contact Lens Rules with a "Sentiment - Time period" from the "Customer" for positive, negative, and neutral sentiments for the past 15 seconds of the contact
+- Create one (1) Real-time Contact Lens Rules with a "Sentiment - Time period" from the "Customer" for negative sentiments for the past 1 minute of the contact
 
 ![2](./img/clrules.png)
 
-- Assign a contact category called PositiveSentiment, NegativeSentiment, and NeutralSentiment for each of the rules
-- Add an action "Generate an EventBridge event" using the same name of the category
+- Assign a contact category called LongNegativeSentiment
+- Add an action "Generate an EventBridge event" and "CreateTask" using the same name of the category
 
 ![3](./img/clActions.png)
 
 ### AWS CloudFormation Stack
 
-The CloudFormation stack [Summit2022-Template-v3.yaml](./cloudformation/Summit2022-Template-v3.yaml), in the cloudformation folder, will create all the serverless applications required for the solution. The input parameters of the CloudFormation stack include Amazon Connect ARN, Amazon Connect Instance, Amazon SageMaker Endpoint name, and Amazon SageMaker Feature Group Name.
+#### Create a S3Bucket and Upload files in the WorkshopFiles folder
+
+There are three (3) files in the WorkshooFiles folder, these are Layers for [Pandas](https://pandas.pydata.org/) and [Numpy](https://numpy.org/):
+- WorhshopFiles/pandas/python.zip
+- WorkshopFiles/numpy/python.zip
+- WorkshopFiles/reInvent2022-LexBot-DRAFT-RATIIENAXZ-LexJson.zip
+
+The CloudFormation stack [reInvent2022-BIZ310-Serveless-v4.yaml](./Cloudformation-Serverless-Connect/reInvent2022-BIZ310-Serveless-v4.yaml), in the cloudformation folder, will create all the serverless applications required for the solution. The input parameters of the CloudFormation stack include Amazon Connect ARN, Amazon Connect Instance, Amazon SageMaker Endpoint name, and Amazon SageMaker Feature Group Name.
 
 ![4](./img/cfParameters.png)
 
-The outputs of the CloudFormation stack includes:
-
-- All outputs include a Summit2022 name prefix
-- **AWS Lambda** functions as described in the architecture diagram
-- **AWS Step Functions** StateMachine
-- **Amazon API Gateway** for the agent Interface to query churn predictions and to update contract information
-- **Amazon EventBridge** rules to update Feature Store based on Contact Lens Rules and to Stop the StateMachine when the call ends
-- **Amazon DynamoDB** tables for Customer Data, Sentiments, ContactIds, and  Churn Predictions
-- **AWS IAM** roles for all the services created
-
-### Lambda functions with Pandas Layer pre-requisite
-
-There are three (3) lambda functions that will need [Pandas](https://pandas.pydata.org/) Layer, these are:
-- CLRealTime - python3.7
-- FSUpdate - python 3.7
-- UpdateContract - python 3.7
-
 ### Amazon Connect
 
-The CustomerLookup lambda function needs to be added to the list of AWS lambda functions that the Amazon Connect instance has permission to access. This is done in the AWS Console > Amazon Connect > Contact Flows > AWS Lambda. Use the Lambda function in your contact flow with the "Invoke AWS Lambda function" block.
+The CustomerProfiles lambda function needs to be added to the list of AWS lambda functions that the Amazon Connect instance has permission to access. This is done in the AWS Console > Amazon Connect > Contact Flows > AWS Lambda. Use the Lambda function in your contact flow with the "Invoke AWS Lambda function" block.
 
 ### Amazon DynamoDB
 
-Four (4) DynamoDB tables will be created by the CloudFormation stack, CustomerData, ContactIds, ChurnPrediction, and Sentiments. You only need to update the **CustomerData** table with the following attributes:
-
-- ```PhoneNumber``` - (string) Customer phone number in e.164 format this could be your numebr
-- ```customerid``` - (string) Unique customer identifier, it needs to be one of the users customer ID used to train the model, for example 8966253.
-- ```contractedMonths``` - (string) Months left in the customer contract, for example 12.
-- ```email``` - (string) 
-- ```FirstName``` - (string)
-- ```LastName``` - (string)
-
-![dynamo](./img/dynamodb.png)
+Three (3) DynamoDB tables will be created by the CloudFormation stack, ContactIds, ChurnPrediction, and Sentiments.
 
 ### Amazon S3 and CloudFront
 
