@@ -3,7 +3,7 @@ Description: 'Example Lambda zip'
 Parameters:
   S3BucketName:
     AllowedPattern: ^[0-9a-zA-Z]+([0-9a-zA-Z-]*[0-9a-zA-Z])*$
-    Default: sagemaker-us-west-2-631450739534
+    Default: sagemaker-us-west-2-[AccountId]
     Type: String
   S3KeyPrefix:
     AllowedPattern: ^[0-9a-zA-Z-/]*$
@@ -53,4 +53,4 @@ Resources:
       - MyFunction
     Version: "1.0"
     Properties:
-      ServiceToken: !GetAtt MyFunction.Arn  
+      ServiceToken: !GetAtt MyFunction.Arn
