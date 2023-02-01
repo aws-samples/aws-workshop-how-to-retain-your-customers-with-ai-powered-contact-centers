@@ -44,6 +44,10 @@ Parameters:
     Default: "**** Enter the S3 bucket where the Workshop Files were uploaded ****"
     Description: S3Bucket with Workshop Files
     Type: String
+  KMSforSNS:
+    Default: "**** KMS ID for SNS ****"
+    Description: Enter the KMS ID for SNS
+    Type: String
 
 # API Gateway URLs, Queue Retention ARN, and LexV2Bot ARN to be used in the Website
 Outputs:
@@ -228,6 +232,7 @@ Resources:
     Type: AWS::SNS::Topic
     Properties:
       TopicName: NegativeSentiment
+      KmsMasterKeyId: !Ref KMSforSNS
 
 # SNS Policy for Event Bridge
   SNSpolicyforEventBridge:
@@ -1045,7 +1050,7 @@ Resources:
       Runtime: python3.9
       Timeout: 30
 
-# Permission for SNS to call Lambda
+# Permission for Kinesis to call Lambda
   KinesisTriggertoLambdaRTStream:
     Type: AWS::Lambda::Permission
     DependsOn:
